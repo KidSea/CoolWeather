@@ -110,7 +110,7 @@ public class ChooseAreaFragment extends BaseFragment {
                 } else if (currentLevel == LEVEL_CITY) {
                     selectedCity = cityList.get(position);
                     queryCounties();
-                } else if (currentLevel == LEVEL_COUNTY) {
+                } //else if (currentLevel == LEVEL_COUNTY) {
 //                    String weatherId = countyList.get(position).getWeatherId();
 //                    if (getActivity() instanceof MainActivity) {
 //                        Intent intent = new Intent(getActivity(), WeatherActivity.class);
@@ -123,7 +123,7 @@ public class ChooseAreaFragment extends BaseFragment {
 //                        activity.swipeRefresh.setRefreshing(true);
 //                        activity.requestWeather(weatherId);
 //                    }
-                }
+                //}
             }
         });
         mBackButton.setOnClickListener(new View.OnClickListener() {

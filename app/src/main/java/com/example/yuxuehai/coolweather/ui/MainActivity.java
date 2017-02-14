@@ -1,5 +1,9 @@
 package com.example.yuxuehai.coolweather.ui;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import com.example.yuxuehai.coolweather.R;
 import com.example.yuxuehai.coolweather.base.BaseActivity;
 
@@ -18,6 +22,11 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if(preferences.getString("weather", null)!= null){
+            Intent intent = new Intent(this, WeatherActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
