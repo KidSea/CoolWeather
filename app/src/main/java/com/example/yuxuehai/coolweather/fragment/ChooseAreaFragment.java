@@ -1,8 +1,8 @@
 package com.example.yuxuehai.coolweather.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +18,8 @@ import com.example.yuxuehai.coolweather.base.BaseFragment;
 import com.example.yuxuehai.coolweather.bean.City;
 import com.example.yuxuehai.coolweather.bean.County;
 import com.example.yuxuehai.coolweather.bean.Province;
+import com.example.yuxuehai.coolweather.ui.MainActivity;
+import com.example.yuxuehai.coolweather.ui.WeatherActivity;
 import com.example.yuxuehai.coolweather.utils.HttpUtils;
 import com.example.yuxuehai.coolweather.utils.Utility;
 
@@ -86,21 +88,23 @@ public class ChooseAreaFragment extends BaseFragment {
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.choose_area, null);
+        return view;
+    }
 
-        mTitileText = (TextView) view.findViewById(R.id.title_text);
-        mBackButton = (Button) view.findViewById(R.id.back_button);
-        mListView = (ListView) view.findViewById(R.id.list_view);
+
+    @Override
+    protected void initView(View rootView) {
+        mTitileText = (TextView) rootView.findViewById(R.id.title_text);
+        mBackButton = (Button) rootView.findViewById(R.id.back_button);
+        mListView = (ListView) rootView.findViewById(R.id.list_view);
         mAdapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_list_item_1, dataList);
 
         mListView.setAdapter(mAdapter);
-
-        return view;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected void initData() {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -110,20 +114,20 @@ public class ChooseAreaFragment extends BaseFragment {
                 } else if (currentLevel == LEVEL_CITY) {
                     selectedCity = cityList.get(position);
                     queryCounties();
-                } //else if (currentLevel == LEVEL_COUNTY) {
-//                    String weatherId = countyList.get(position).getWeatherId();
-//                    if (getActivity() instanceof MainActivity) {
-//                        Intent intent = new Intent(getActivity(), WeatherActivity.class);
-//                        intent.putExtra("weather_id", weatherId);
-//                        startActivity(intent);
-//                        getActivity().finish();
-//                    } else if (getActivity() instanceof WeatherActivity) {
-//                        WeatherActivity activity = (WeatherActivity) getActivity();
-//                        activity.drawerLayout.closeDrawers();
-//                        activity.swipeRefresh.setRefreshing(true);
-//                        activity.requestWeather(weatherId);
-//                    }
-                //}
+                } else if (currentLevel == LEVEL_COUNTY) {
+                    String weatherId = countyList.get(position).getWeatherId();
+                    if (getActivity() instanceof MainActivity) {
+                        Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                        intent.putExtra("weather_id", weatherId);
+                        startActivity(intent);
+                        getActivity().finish();
+                    } else if (getActivity() instanceof WeatherActivity) {
+                        WeatherActivity activity = (WeatherActivity) getActivity();
+                        activity.drawerLayout.closeDrawers();
+                        activity.swipeRefresh.setRefreshing(true);
+                        activity.requestWeather(weatherId);
+                    }
+                }
             }
         });
         mBackButton.setOnClickListener(new View.OnClickListener() {
@@ -137,16 +141,6 @@ public class ChooseAreaFragment extends BaseFragment {
             }
         });
         queryProvinces();
-    }
-
-    @Override
-    protected void initView(View rootView) {
-
-    }
-
-    @Override
-    protected void initData() {
-
     }
 
     @Override

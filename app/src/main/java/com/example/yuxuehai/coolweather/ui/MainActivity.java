@@ -6,6 +6,9 @@ import android.preference.PreferenceManager;
 
 import com.example.yuxuehai.coolweather.R;
 import com.example.yuxuehai.coolweather.base.BaseActivity;
+/**
+ * Created by yuxuehai on 17-2-14.
+ */
 
 public class MainActivity extends BaseActivity {
 

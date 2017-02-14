@@ -32,8 +32,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        beforeview();
         setContentView(getContentLayoutId());
-
         setupActionBar();
 
         initView();
@@ -41,6 +41,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     }
+
+    protected void beforeview() {
+
+    }
+
 
     protected void setupActionBar(){
     }
