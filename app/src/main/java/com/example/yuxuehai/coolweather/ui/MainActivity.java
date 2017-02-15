@@ -1,5 +1,6 @@
 package com.example.yuxuehai.coolweather.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -12,6 +13,11 @@ import com.example.yuxuehai.coolweather.base.BaseActivity;
 
 public class MainActivity extends BaseActivity {
 
+
+    @Override
+    protected Activity getActivityContext() {
+        return super.getActivityContext();
+    }
 
     @Override
     protected int getContentLayoutId() {
